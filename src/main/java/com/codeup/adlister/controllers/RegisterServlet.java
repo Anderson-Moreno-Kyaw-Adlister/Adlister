@@ -30,6 +30,10 @@ public class RegisterServlet extends HttpServlet {
             || password.isEmpty()
             || (! password.equals(passwordConfirmation));
 
+        if (DaoFactory.getUsersDao().findByUsername(username) != null) {
+            inputHasErrors = true;
+        }
+
         if (inputHasErrors) {
             response.sendRedirect("/register");
             return;
