@@ -20,7 +20,11 @@
                 <c:url value="/ads/updateAd" var="updateAdUrl">
                     <c:param name="ad_id" value="${ad.id}" />
                 </c:url>
-                <a href="${updateAdUrl}">Update this ad</a>
+                <a href="${updateAdUrl}"><button>Update the ad!</button></a>
+                <c:url value="/ads/deleteAd" var="updateAdUrl">
+                    <c:param name="ad_id" value="${ad.id}" />
+                </c:url>
+                <a href="${updateAdUrl}"><button>Deleting the ad!</button></a>
             </div>
         </c:forEach>
     </div>

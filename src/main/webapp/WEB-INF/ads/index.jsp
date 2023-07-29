@@ -29,6 +29,10 @@
                             <input class="btn" type="submit" name ="ad_id" value="${userAd.id}">
                             <input type="hidden" name="ad_id" value="${userAd.id}">
                         </form></td>
+                        <td><form action="ads/deleteAd" method="get">
+                            <input class="btn" type="submit" name ="ad_id" value="${userAd.id}">
+                            <input type="hidden" name="ad_id" value="${userAd.id}">
+                        </form></td>
                     </tr>
                     </tbody>
                 </c:forEach>
