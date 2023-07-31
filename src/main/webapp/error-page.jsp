@@ -12,6 +12,7 @@
     <title>Error</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <h1>Error</h1>
 <p>Oops! Something went wrong.</p>
 </body>
