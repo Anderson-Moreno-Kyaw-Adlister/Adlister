@@ -44,6 +44,7 @@ public class UpdateAdsServlet extends HttpServlet{
         User user = (User) request.getSession().getAttribute("user");
         String title = request.getParameter("updateTitle");
         String description = request.getParameter("updateDescription");
+
         if (title != null && description != null) {
             Ad changedAd = new Ad(
                     adId,
@@ -52,6 +53,8 @@ public class UpdateAdsServlet extends HttpServlet{
                     description
             );
             DaoFactory.getAdsDao().updateAd(changedAd);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
         }
         response.sendRedirect("/profile");
     }

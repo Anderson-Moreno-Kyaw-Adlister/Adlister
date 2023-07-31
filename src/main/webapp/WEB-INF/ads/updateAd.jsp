@@ -18,7 +18,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <h1>Update your Ad</h1>
-    <form action="/updateAd" method="post">
+    <form action="/ads/updateAd" method="post">
         <div class="form-group">
             <label for="title">Title</label>
             <input id="title" name="updateTitle" class="form-control" type="text" value="${sessionScope.adToUpdate.title}">

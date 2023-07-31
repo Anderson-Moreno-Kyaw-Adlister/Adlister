@@ -19,23 +19,45 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("/profile");
             return;
         }
+
+        if (request.getSession().getAttribute("failed") == null) {
+            request.getSession().setAttribute("failed", false);
+        }
+
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("updateUsername");
-        String email = request.getParameter("updateEmail");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
-        // validate input
-        boolean inputHasErrors = username.isEmpty()
-            || email.isEmpty()
-            || password.isEmpty()
-            || (! password.equals(passwordConfirmation))
-            || DaoFactory.getUsersDao().findByUsername(username) != null; //added condition using existing function to check for username.
-
-        if (inputHasErrors) {
+        // Validate input
+        //Sets message and failed attributes reloads page
+        if (username.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid username");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/register");
+            return;
+        }else if (email.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid email");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/register");
+            return;
+        } else if (password.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid password");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/register");
+            return;
+        } else if ((! password.equals(passwordConfirmation))) {
+            request.getSession().setAttribute("message", "Please confirm password");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/register");
+            return;
+        } else if (DaoFactory.getUsersDao().findByUsername(username) != null) {
+            request.getSession().setAttribute("message", "Username already in use");
+            request.getSession().setAttribute("failed", true);
             response.sendRedirect("/register");
             return;
         }

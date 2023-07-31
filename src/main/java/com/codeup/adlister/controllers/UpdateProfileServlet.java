@@ -21,6 +21,10 @@ public class UpdateProfileServlet extends HttpServlet {
         request.setAttribute("username", user.getUsername());
         request.setAttribute("email", user.getEmail());
 
+        if (request.getSession().getAttribute("failed") == null) {
+            request.getSession().setAttribute("failed", false);
+        }
+
         // Forward the request to the JSP for displaying the update form
         request.getRequestDispatcher("/WEB-INF/updateProfile.jsp").forward(request, response);
     }
@@ -50,12 +54,25 @@ public class UpdateProfileServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirm_password");
 
         // Validate input
-        boolean inputHasErrors = newUsername.isEmpty()
-                || newEmail.isEmpty()
-                || newPassword.isEmpty()
-                || (!newPassword.equals(confirmPassword));
-
-        if (inputHasErrors) {
+        //Sets message and failed attributes reloads page
+        if (newUsername.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid username");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/updateProfile");
+            return;
+        }else if (newEmail.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid email");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/updateProfile");
+            return;
+        } else if (newPassword.isEmpty()) {
+            request.getSession().setAttribute("message", "Please enter a valid password");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/updateProfile");
+            return;
+        } else if ((!newPassword.equals(confirmPassword))) {
+            request.getSession().setAttribute("message", "Please confirm password");
+            request.getSession().setAttribute("failed", true);
             response.sendRedirect("/updateProfile");
             return;
         }
@@ -64,10 +81,8 @@ public class UpdateProfileServlet extends HttpServlet {
         user.setUsername(newUsername);
         user.setEmail(newEmail);
 
-        if (!newPassword.isEmpty()) {
-            String hash = Password.hash(newPassword);
-            user.setPassword(hash);
-        }
+        String hash = Password.hash(newPassword);
+        user.setPassword(hash);
 
         // Save the updated user in the database
         DaoFactory.getUsersDao().updateProfile(user);
