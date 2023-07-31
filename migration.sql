@@ -20,3 +20,10 @@ CREATE TABLE ads (
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+describe users;
+describe ads;
+
+use employees;
+show tables;
+describe employees;

@@ -11,15 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="UpdateAdsServlet", urlPatterns = "/update")
+@WebServlet(name="UpdateAdsServlet", urlPatterns = "/ads/updateAd")
 public class UpdateAdsServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("user")==null){
+        if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
         }
-        long adId = Long.parseLong(request.getParameter("ad_id"));
+
+        long adId;
+        try {
+            adId = Long.parseLong(request.getParameter("ad_id"));
+        } catch (NumberFormatException e) {
+            // Handle the case when the ad_id parameter is not a valid long
+            response.sendRedirect("/error-page.jsp");
+            return;
+        }
+
         Ad adToUpdate = DaoFactory.getAdsDao().findAdByID(adId);
+        if (adToUpdate == null) {
+            // Handle the case when the ad with the specified ID is not found.
+            response.sendRedirect("/error-page.jsp");
+            return;
+        }
+
         request.getSession().setAttribute("adToUpdate", adToUpdate);
         request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
     }
