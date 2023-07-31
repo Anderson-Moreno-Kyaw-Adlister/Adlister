@@ -28,6 +28,10 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public List<Ad> searchAds(String term) {
+        return null;
+    }
+
     public Ad updateAd(Ad ad) {
         return null;
     }
