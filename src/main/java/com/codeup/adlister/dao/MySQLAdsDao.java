@@ -55,12 +55,15 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    //New method adds ad index and and selected catagorie to add_cat table
     public void setCategories(long index, String category) throws SQLException {
         String query = "SELECT id FROM categories WHERE category = '" + category + "'";
         PreparedStatement stmt = connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
+
         rs.next();
         long cat_id = rs.getLong("id");
+
         String addQuery = "INSERT INTO ad_cat(ad_id, cat_id) VALUES (" + index + "," + cat_id + ")";
         stmt = connection.prepareStatement(addQuery);
         stmt.executeUpdate();

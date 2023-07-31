@@ -17,6 +17,7 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>
             </div>
+<%--            Added checkboxes for catagories to jsp--%>
             <div>
                 <input type="checkbox" id="cat1" name="categories" value="cat1">
                 <label for="cat1">Cat 1</label>

@@ -36,8 +36,9 @@ public class CreateAdServlet extends HttpServlet {
             request.getParameter("description")
         );
         long index = DaoFactory.getAdsDao().insert(ad);
-        String[] categories = request.getParameterValues("categories");
+        String[] categories = request.getParameterValues("categories"); //Pulls cats from jsp
 
+        //For loop used here, each selected catagory sent to method in MySQLAdsDao
         if (categories != null) {
             for (String category : categories) {
                 try {
