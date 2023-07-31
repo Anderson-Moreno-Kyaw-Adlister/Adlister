@@ -28,11 +28,8 @@ public class RegisterServlet extends HttpServlet {
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
-
-        if (DaoFactory.getUsersDao().findByUsername(username) != null) {
-            inputHasErrors = true;
-        }
+            || (! password.equals(passwordConfirmation))
+            || DaoFactory.getUsersDao().findByUsername(username) != null; //added condition using existing function to check for username.
 
         if (inputHasErrors) {
             response.sendRedirect("/register");
