@@ -15,12 +15,16 @@ import java.io.IOException;
 @WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("user")!=null){
+            response.sendRedirect("/profile");
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
+        String username = request.getParameter("updateUsername");
+        String email = request.getParameter("updateEmail");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
@@ -28,7 +32,8 @@ public class RegisterServlet extends HttpServlet {
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
+            || (! password.equals(passwordConfirmation))
+            || DaoFactory.getUsersDao().findByUsername(username) != null; //added condition using existing function to check for username.
 
         if (inputHasErrors) {
             response.sendRedirect("/register");

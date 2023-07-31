@@ -28,8 +28,8 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE ad_cat (
-                        ad_id INT UNSIGNED NOT NULL,
-                        cat_id INT UNSIGNED NOT NULL,
-                        FOREIGN KEY (ad_id) REFERENCES ads(id),
-                        FOREIGN KEY (cat_id) REFERENCES categories(id)
+    ad_id INT UNSIGNED NOT NULL,
+    cat_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (ad_id) REFERENCES ads(id),
+    FOREIGN KEY (cat_id) REFERENCES categories(id)
 );

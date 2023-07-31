@@ -12,4 +12,12 @@ public interface Ads {
     Long insert(Ad ad);
 
     void setCategories(long index, String category) throws SQLException;
+    List<Ad> searchAds(String term) throws SQLException;
+    Ad updateAd(Ad ad);
+
+    Ad findAdByID(long adId);
+
+    List<Ad> userAds(long id);
+
+    void deleteAd(long adId);
 }

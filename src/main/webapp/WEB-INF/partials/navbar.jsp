@@ -8,6 +8,11 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
+        <form action="/search" method="GET">
+            <label for="search">Search</label>
+            <input id="search" name="search" type="search">
+            <button type="submit">Search</button>
+        </form>
     </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

@@ -30,6 +30,26 @@ public class ListAdsDao implements Ads {
 
     @Override
     public void setCategories(long index, String category) throws SQLException {
+    public List<Ad> searchAds(String term) {
+        return null;
+    }
+
+    public Ad updateAd(Ad ad) {
+        return null;
+    }
+
+    @Override
+    public Ad findAdByID(long adId) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> userAds(long id) {
+        return null;
+    }
+
+    @Override
+    public void deleteAd(long adId) {
 
     }
 

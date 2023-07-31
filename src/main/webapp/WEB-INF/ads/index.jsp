@@ -9,16 +9,29 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
-<div class="container">
-    <h1>Here Are all the ads!</h1>
-
-    <c:forEach var="ad" items="${ads}">
-        <div class="col-md-6">
-            <h2>${ad.title}</h2>
-            <p>${ad.description}</p>
+<div class="container d-flex-row">
+    <h1 class="h1 row text-center header">Welcome, ${sessionScope.user.username}!</h1>
+    <div class="row d-flex">
+        <div class="userAds container col-8">
+            <h2>Here are all your ads!</h2>
+            <table class="table table-striped-rows">
+                <thead>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                </thead>
+                <c:forEach var="userAd" items="${userAds}">
+                    <tbody>
+                    <tr>
+                        <td>${userAd.title}</td>
+                        <td >${userAd.description}</td>
+                    </tbody>
+                </c:forEach>
+            </table>
         </div>
-    </c:forEach>
+    </div>
 </div>
-
 </body>
 </html>
+
+
+
