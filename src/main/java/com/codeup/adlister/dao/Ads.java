@@ -11,6 +11,7 @@ public interface Ads {
     // insert a new ad and return the new ad's id
     Long insert(Ad ad);
 
+    void setCategories(long index, String category) throws SQLException;
     List<Ad> searchAds(String term) throws SQLException;
     Ad updateAd(Ad ad);
 
