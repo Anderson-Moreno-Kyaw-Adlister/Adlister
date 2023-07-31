@@ -14,15 +14,16 @@ import java.io.IOException;
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = "/updateProfile")
 public class UpdateProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve the current user from the session
-        User user = (User) request.getSession().getAttribute("user");
 
-        // Set user attributes as request attributes to pre-fill the form
-        request.setAttribute("username", user.getUsername());
-        request.setAttribute("email", user.getEmail());
-
+        System.out.println(request.getSession().getAttribute("failed"));
         if (request.getSession().getAttribute("failed") == null) {
+            // Retrieve the current user from the session
             request.getSession().setAttribute("failed", false);
+            User user = (User) request.getSession().getAttribute("user");
+
+            // Set user attributes as request attributes to pre-fill the form
+            request.setAttribute("username", user.getUsername());
+            request.setAttribute("email", user.getEmail());
         }
 
         // Forward the request to the JSP for displaying the update form
@@ -53,36 +54,37 @@ public class UpdateProfileServlet extends HttpServlet {
         String newPassword = request.getParameter("new_password");
         String confirmPassword = request.getParameter("confirm_password");
 
-        // Validate input
-        //Sets message and failed attributes reloads page
-        if (newUsername.isEmpty()) {
-            request.getSession().setAttribute("message", "Please enter a valid username");
-            request.getSession().setAttribute("failed", true);
-            response.sendRedirect("/updateProfile");
-            return;
-        }else if (newEmail.isEmpty()) {
-            request.getSession().setAttribute("message", "Please enter a valid email");
-            request.getSession().setAttribute("failed", true);
-            response.sendRedirect("/updateProfile");
-            return;
-        } else if (newPassword.isEmpty()) {
-            request.getSession().setAttribute("message", "Please enter a valid password");
-            request.getSession().setAttribute("failed", true);
-            response.sendRedirect("/updateProfile");
-            return;
-        } else if ((!newPassword.equals(confirmPassword))) {
-            request.getSession().setAttribute("message", "Please confirm password");
-            request.getSession().setAttribute("failed", true);
-            response.sendRedirect("/updateProfile");
-            return;
+        boolean isUnique = DaoFactory.getUsersDao().findByUsername(newUsername) == null;
+        boolean isCurrentUser = newUsername.equals(user.getUsername());
+
+        // Validate input and Update the user's information
+        if (!newUsername.isEmpty()) {
+            if (!isUnique && !isCurrentUser) {
+                System.out.println("here");
+                request.getSession().setAttribute("message", "Username already exists");
+                request.getSession().setAttribute("failed", true);
+                response.sendRedirect("/updateProfile");
+                return;
+            } else {
+                user.setUsername(newUsername);
+            }
         }
 
-        // Update the user's information
-        user.setUsername(newUsername);
-        user.setEmail(newEmail);
+        if (!newEmail.isEmpty()) {
+            user.setEmail(newEmail);
+        }
 
-        String hash = Password.hash(newPassword);
-        user.setPassword(hash);
+        if (!newPassword.isEmpty()) {
+            if ((!newPassword.equals(confirmPassword))) {
+                request.getSession().setAttribute("message", "Please confirm password");
+                request.getSession().setAttribute("failed", true);
+                response.sendRedirect("/updateProfile");
+                return;
+            } else {
+                String hash = Password.hash(newPassword);
+                user.setPassword(hash);
+            }
+        }
 
         // Save the updated user in the database
         DaoFactory.getUsersDao().updateProfile(user);
