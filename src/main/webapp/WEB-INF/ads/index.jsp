@@ -18,22 +18,12 @@
                 <thead>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
-                <th scope="col">Update</th>
                 </thead>
                 <c:forEach var="userAd" items="${userAds}">
                     <tbody>
                     <tr>
                         <td>${userAd.title}</td>
                         <td >${userAd.description}</td>
-                        <td><form action="ads/updateAd" method="get">
-                            <input class="btn" type="submit" name ="ad_id" value="${userAd.id}">
-                            <input type="hidden" name="ad_id" value="${userAd.id}">
-                        </form></td>
-                        <td><form action="ads/deleteAd" method="get">
-                            <input class="btn" type="submit" name ="ad_id" value="${userAd.id}">
-                            <input type="hidden" name="ad_id" value="${userAd.id}">
-                        </form></td>
-                    </tr>
                     </tbody>
                 </c:forEach>
             </table>
