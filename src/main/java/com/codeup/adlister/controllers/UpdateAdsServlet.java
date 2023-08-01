@@ -15,26 +15,14 @@ import java.io.IOException;
 public class UpdateAdsServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
+            String currentURL = request.getRequestURL().toString();
+            request.getSession().setAttribute("intendedRedirect", currentURL);
             response.sendRedirect("/login");
             return;
         }
 
-        long adId;
-        try {
-            adId = Long.parseLong(request.getParameter("ad_id"));
-        } catch (NumberFormatException e) {
-            // Handle the case when the ad_id parameter is not a valid long
-            response.sendRedirect("/error-page.jsp");
-            return;
-        }
-
+        long adId = Long.parseLong(request.getParameter("ad_id"));
         Ad adToUpdate = DaoFactory.getAdsDao().findAdByID(adId);
-        if (adToUpdate == null) {
-            // Handle the case when the ad with the specified ID is not found.
-            response.sendRedirect("/error-page.jsp");
-            return;
-        }
-
         request.getSession().setAttribute("adToUpdate", adToUpdate);
         request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
     }
@@ -44,6 +32,7 @@ public class UpdateAdsServlet extends HttpServlet{
         User user = (User) request.getSession().getAttribute("user");
         String title = request.getParameter("updateTitle");
         String description = request.getParameter("updateDescription");
+
         if (title != null && description != null) {
             Ad changedAd = new Ad(
                     adId,
@@ -52,6 +41,8 @@ public class UpdateAdsServlet extends HttpServlet{
                     description
             );
             DaoFactory.getAdsDao().updateAd(changedAd);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
         }
         response.sendRedirect("/profile");
     }

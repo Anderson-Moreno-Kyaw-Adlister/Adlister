@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if (request.getSession().getAttribute("user") != null) {
             response.sendRedirect("/profile");
             return;
@@ -37,8 +38,15 @@ public class LoginServlet extends HttpServlet {
         if (validAttempt) {
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("userId", user.getId());
-            response.sendRedirect("/profile");
-        } else {
+            String intendedRedirect = (String) request.getSession().getAttribute("intendedRedirect");
+            if (intendedRedirect != null && !intendedRedirect.isEmpty()) {
+                request.getSession().removeAttribute("intendedRedirect");
+                response.sendRedirect(intendedRedirect);
+            } else {
+                response.sendRedirect("/profile");
+            }
+        }
+        else {
             response.sendRedirect("/login");
         }
     }

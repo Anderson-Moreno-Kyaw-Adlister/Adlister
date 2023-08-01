@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: khinememekyaw
@@ -13,7 +14,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-<h1>Error</h1>
-<p>Oops! Something went wrong.</p>
+    <h1>Error</h1>
+    <h2><c:out value="${message}"/></h2>
 </body>
 </html>
