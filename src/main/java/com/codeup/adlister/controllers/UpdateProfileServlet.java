@@ -35,20 +35,11 @@ public class UpdateProfileServlet extends HttpServlet {
         // Retrieve the current user from the session
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
+            String currentURL = request.getRequestURL().toString();
+            request.getSession().setAttribute("intendedRedirect", currentURL);
             response.sendRedirect("/login");
             return;
         }
-
-//        // Get the current password entered by the user
-//        String currentPassword = request.getParameter("password");
-//
-//        // Validate the current password
-//        boolean isValidPassword = Password.check(currentPassword, user.getPassword());
-//        if (!isValidPassword) {
-//            response.sendRedirect("/profile");
-//            return;
-//        }
-
         // Retrieve the new username, email, and password from the form
         String newUsername = request.getParameter("username");
         String newEmail = request.getParameter("email");

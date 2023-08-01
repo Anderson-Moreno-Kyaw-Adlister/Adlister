@@ -16,15 +16,19 @@ import java.sql.SQLException;
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute("user") == null) {
+            String currentURL = request.getRequestURL().toString();
+            request.getSession().setAttribute("intendedRedirect", currentURL);
             response.sendRedirect("/login");
             // add a return statement to exit out of the entire method.
             return;
         }
 
+
         //Sets attribute if not previously set
         if (request.getSession().getAttribute("failed") == null) {
             request.getSession().setAttribute("failed", false);
         }
+
 
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
 
