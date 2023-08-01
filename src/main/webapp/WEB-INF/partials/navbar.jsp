@@ -19,6 +19,9 @@
             <li><a href="/logout">Logout</a></li>
             <li> <a href="/profile"> Profile</a> </li>
             <li> <a href="/updateProfile"> Update Profile</a> </li>
+            <li> <a href="/ads/create"> Create Ad</a> </li>
+            <li> <a href="/ads/deleteAd"> Delete Ad</a> </li>
+
         </ul>
         <%
             }
