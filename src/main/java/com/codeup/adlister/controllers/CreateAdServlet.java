@@ -19,11 +19,12 @@ import java.util.Arrays;
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute("user") == null) {
+            String currentURL = request.getRequestURL().toString();
+            request.getSession().setAttribute("intendedRedirect", currentURL);
             response.sendRedirect("/login");
             // add a return statement to exit out of the entire method.
             return;
         }
-
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
 
     }

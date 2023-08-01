@@ -14,6 +14,8 @@ import java.io.IOException;
 public class DeleteAdsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
+            String currentURL = request.getRequestURL().toString();
+            request.getSession().setAttribute("intendedRedirect", currentURL);
             response.sendRedirect("/login");
             return;
         }
