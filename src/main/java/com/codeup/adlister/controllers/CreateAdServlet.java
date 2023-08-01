@@ -1,7 +1,6 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
-import com.codeup.adlister.dao.MySQLAdsDao;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 
@@ -10,10 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
@@ -25,28 +22,62 @@ public class CreateAdServlet extends HttpServlet {
             // add a return statement to exit out of the entire method.
             return;
         }
+
+
+        //Sets attribute if not previously set
+        if (request.getSession().getAttribute("failed") == null) {
+            request.getSession().setAttribute("failed", false);
+        }
+
+
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().setAttribute("message", "Oops! Something went wrong.");
+
         User loggedInUser = (User) request.getSession().getAttribute("user");
-        Ad ad = new Ad(
-            loggedInUser.getId(),
-            request.getParameter("title"),
-            request.getParameter("description")
-        );
-        long index = DaoFactory.getAdsDao().insert(ad);
+
+        String title = request.getParameter("title").trim();
+        String description = request.getParameter("description").trim();
         String[] categories = request.getParameterValues("categories"); //Pulls cats from jsp
 
-        //For loop used here, each selected catagory sent to method in MySQLAdsDao
-        if (categories != null) {
-            for (String category : categories) {
-                try {
-                    DaoFactory.getAdsDao().setCategories(index, category);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+        // Validate input
+        //Sets message and failed attributes reloads page
+        if (title.equals("")) {
+            request.getSession().setAttribute("message", "Please enter a title!");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/ads/create");
+            return;
+        } else if (description.equals("")) {
+            request.getSession().setAttribute("message", "Please enter a description");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/ads/create");
+            return;
+        } else if (categories == null) {
+            request.getSession().setAttribute("message", "Please select at least one category");
+            request.getSession().setAttribute("failed", true);
+            response.sendRedirect("/ads/create");
+            return;
+        }
+
+        Ad ad = new Ad(
+            loggedInUser.getId(),
+                title,
+                description
+        );
+
+        long index = DaoFactory.getAdsDao().insert(ad);
+
+        //For loop used here, each selected category sent to method in MySQLAdsDao
+        for (String category : categories) {
+            try {
+                DaoFactory.getAdsDao().setCategories(index, category);
+            } catch (SQLException e) {
+                request.getSession().setAttribute("failed", true);
+                response.sendRedirect("/ads/create");
+                return;
             }
         }
 
