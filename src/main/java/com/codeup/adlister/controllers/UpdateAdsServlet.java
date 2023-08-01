@@ -21,6 +21,10 @@ public class UpdateAdsServlet extends HttpServlet{
             return;
         }
 
+        if (request.getSession().getAttribute("failedUpdateAd") == null) {
+            request.getSession().setAttribute("failedUpdateAd", false);
+        }
+
         long adId = Long.parseLong(request.getParameter("ad_id"));
         Ad adToUpdate = DaoFactory.getAdsDao().findAdByID(adId);
         request.getSession().setAttribute("adToUpdate", adToUpdate);
@@ -30,10 +34,19 @@ public class UpdateAdsServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         long adId = Long.parseLong(request.getParameter("ad_id"));
         User user = (User) request.getSession().getAttribute("user");
-        String title = request.getParameter("updateTitle");
-        String description = request.getParameter("updateDescription");
+        String title = request.getParameter("updateTitle").trim();
+        String description = request.getParameter("updateDescription").trim();
 
-        if (title != null && description != null) {
+        if (title.equals("")) {
+            request.getSession().setAttribute("message", "Please enter a Title");
+            request.getSession().setAttribute("failedUpdateAd", true);
+            request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
+            return;
+        } else if (description.equals("")) {
+            request.getSession().setAttribute("message", "Please enter a Description");
+            request.getSession().setAttribute("failedUpdateAd", true);
+            request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
+        } else {
             Ad changedAd = new Ad(
                     adId,
                     user.getId(),
@@ -41,9 +54,8 @@ public class UpdateAdsServlet extends HttpServlet{
                     description
             );
             DaoFactory.getAdsDao().updateAd(changedAd);
-        } else {
-            request.getRequestDispatcher("/WEB-INF/ads/updateAd.jsp").forward(request, response);
         }
+
         response.sendRedirect("/profile");
     }
 }

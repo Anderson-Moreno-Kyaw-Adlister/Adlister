@@ -27,8 +27,8 @@ public class CreateAdServlet extends HttpServlet {
 
 
         //Sets attribute if not previously set
-        if (request.getSession().getAttribute("failed") == null) {
-            request.getSession().setAttribute("failed", false);
+        if (request.getSession().getAttribute("failedRegister") == null) {
+            request.getSession().setAttribute("failedRegister", false);
         }
 
 
@@ -67,17 +67,17 @@ public class CreateAdServlet extends HttpServlet {
         //Sets message and failed attributes reloads page
         if (title.equals("")) {
             request.getSession().setAttribute("message", "Please enter a title!");
-            request.getSession().setAttribute("failed", true);
+            request.getSession().setAttribute("failedRegister", true);
             response.sendRedirect("/ads/create");
             return;
         } else if (description.equals("")) {
             request.getSession().setAttribute("message", "Please enter a description");
-            request.getSession().setAttribute("failed", true);
+            request.getSession().setAttribute("failedRegister", true);
             response.sendRedirect("/ads/create");
             return;
         } else if (categories == null) {
             request.getSession().setAttribute("message", "Please select at least one category");
-            request.getSession().setAttribute("failed", true);
+            request.getSession().setAttribute("failedRegister", true);
             response.sendRedirect("/ads/create");
             return;
         }
@@ -95,11 +95,14 @@ public class CreateAdServlet extends HttpServlet {
             try {
                 DaoFactory.getAdsDao().setCategories(index, category);
             } catch (SQLException e) {
-                request.getSession().setAttribute("failed", true);
+                request.getSession().setAttribute("failedRegister", true);
                 response.sendRedirect("/ads/create");
                 return;
             }
         }
+
+        //Resets failedUpdate attribute
+        request.getSession().setAttribute("failedRegister", false);
 
         response.sendRedirect("/ads");
         request.getSession().removeAttribute("validData");

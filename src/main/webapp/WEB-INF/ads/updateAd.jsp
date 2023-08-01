@@ -5,7 +5,7 @@
   Time: 3:14 PM
   To change this template use File | Settings | File Templates.
 --%>
-<<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,6 +18,16 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <h1>Update your Ad</h1>
+
+    <%--  Shows message if previous failure--%>
+    <c:choose>
+        <c:when test="${failedUpdateAd}">
+            <h4><c:out value="${message}" /></h4>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
+
     <form action="/ads/updateAd" method="post">
         <div class="form-group">
             <label for="title">Title</label>

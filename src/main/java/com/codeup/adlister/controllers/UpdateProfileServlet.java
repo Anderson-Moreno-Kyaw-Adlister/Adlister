@@ -14,13 +14,11 @@ import java.io.IOException;
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = "/updateProfile")
 public class UpdateProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        System.out.println(request.getSession().getAttribute("failed"));
-        if (request.getSession().getAttribute("failed") == null) {
+        if (request.getSession().getAttribute("failedUpdate") == null) {
+            request.getSession().setAttribute("failedUpdate", false);
         }
 
         // Retrieve the current user from the session
-        request.getSession().setAttribute("failed", false);
         User user = (User) request.getSession().getAttribute("user");
 
         // Set user attributes as request attributes to pre-fill the form
@@ -54,7 +52,7 @@ public class UpdateProfileServlet extends HttpServlet {
             if (!isUnique && !isCurrentUser) {
                 System.out.println("here");
                 request.getSession().setAttribute("message", "Username already exists");
-                request.getSession().setAttribute("failed", true);
+                request.getSession().setAttribute("failedUpdate", true);
                 response.sendRedirect("/updateProfile");
                 return;
             } else {
@@ -69,7 +67,7 @@ public class UpdateProfileServlet extends HttpServlet {
         if (!newPassword.isEmpty()) {
             if ((!newPassword.equals(confirmPassword))) {
                 request.getSession().setAttribute("message", "Please confirm password");
-                request.getSession().setAttribute("failed", true);
+                request.getSession().setAttribute("failedUpdate", true);
                 response.sendRedirect("/updateProfile");
                 return;
             } else {
@@ -81,8 +79,10 @@ public class UpdateProfileServlet extends HttpServlet {
         // Save the updated user in the database
         DaoFactory.getUsersDao().updateProfile(user);
 
-        response.sendRedirect("/profile");
+        //Resets failedUpdate attribute
+        request.getSession().setAttribute("failedUpdate", false);
 
+        response.sendRedirect("/profile");
     }
 }
 

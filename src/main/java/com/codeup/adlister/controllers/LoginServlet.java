@@ -15,6 +15,9 @@ import java.io.IOException;
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("failedLogin") == null) {
+            request.getSession().setAttribute("failedLogin", false);
+        }
 
         if (request.getSession().getAttribute("user") != null) {
             response.sendRedirect("/profile");
@@ -23,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = DaoFactory.getUsersDao().findByUsername(username);
@@ -36,6 +39,8 @@ public class LoginServlet extends HttpServlet {
         boolean validAttempt = Password.check(password, user.getPassword());
 
         if (validAttempt) {
+            request.getSession().setAttribute("failedLogin", false);
+
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("userId", user.getId());
             String intendedRedirect = (String) request.getSession().getAttribute("intendedRedirect");
@@ -45,8 +50,11 @@ public class LoginServlet extends HttpServlet {
             } else {
                 response.sendRedirect("/profile");
             }
-        }
-        else {
+        } else {
+            request.getSession().setAttribute("message", "Incorrect login");
+            request.getSession().setAttribute("failedLogin", true);
+            System.out.println(request.getSession().getAttribute("message"));
+//            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             response.sendRedirect("/login");
         }
     }
