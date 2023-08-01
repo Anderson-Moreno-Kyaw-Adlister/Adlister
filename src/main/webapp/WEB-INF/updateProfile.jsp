@@ -14,6 +14,16 @@
   </jsp:include>
 </head>
 <body>
+
+<%--  Shows message if previous failure--%>
+<c:choose>
+  <c:when test="${failed}">
+    <h4><c:out value="${message}" /></h4>
+  </c:when>
+  <c:otherwise>
+  </c:otherwise>
+</c:choose>
+
 <jsp:include page="partials/navbar.jsp" />
 <div class="container">
 
