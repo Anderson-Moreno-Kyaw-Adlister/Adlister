@@ -17,12 +17,19 @@
                 <thead>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Individual Ad</th>
                 </thead>
                 <c:forEach var="ad" items="${ads}">
                     <tbody>
                     <tr>
                         <td>${ad.title}</td>
                         <td >${ad.description}</td>
+                       <td>
+                        <c:url value="/ads/individualad" var="individualadUrl">
+                            <c:param name="ad_id" value="${ad.id}" />
+                        </c:url>
+                        <a href="${individualadUrl}"><button> Individual Ad </button></a>
+                       </td>
                     </tbody>
                 </c:forEach>
             </table>
