@@ -17,14 +17,15 @@ public class UpdateProfileServlet extends HttpServlet {
 
         System.out.println(request.getSession().getAttribute("failed"));
         if (request.getSession().getAttribute("failed") == null) {
-            // Retrieve the current user from the session
-            request.getSession().setAttribute("failed", false);
-            User user = (User) request.getSession().getAttribute("user");
-
-            // Set user attributes as request attributes to pre-fill the form
-            request.setAttribute("username", user.getUsername());
-            request.setAttribute("email", user.getEmail());
         }
+
+        // Retrieve the current user from the session
+        request.getSession().setAttribute("failed", false);
+        User user = (User) request.getSession().getAttribute("user");
+
+        // Set user attributes as request attributes to pre-fill the form
+        request.setAttribute("username", user.getUsername());
+        request.setAttribute("email", user.getEmail());
 
         // Forward the request to the JSP for displaying the update form
         request.getRequestDispatcher("/WEB-INF/updateProfile.jsp").forward(request, response);
