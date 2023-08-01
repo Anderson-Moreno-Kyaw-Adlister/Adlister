@@ -1,10 +1,10 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.Config;
+
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-
+import com.codeup.adlister.dao.Config;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
