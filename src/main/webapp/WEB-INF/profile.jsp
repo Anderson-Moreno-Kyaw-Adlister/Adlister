@@ -13,16 +13,16 @@
         <h1>Welcome to Your Profile, ${sessionScope.user.username}!</h1>
 
         <h2>Your Ads:</h2>
-        <c:forEach var="ad" items="${userAds}">
+        <c:forEach var="userAd" items="${userAds}">
             <div>
-                <h3>${ad.title}</h3>
-                <p>${ad.description}</p>
+                <h3>${userAd.title}</h3>
+                <p>${userAd.description}</p>
                 <c:url value="/ads/updateAd" var="updateAdUrl">
-                    <c:param name="ad_id" value="${ad.id}" />
+                    <c:param name="ad_id" value="${userAd.id}" />
                 </c:url>
                 <a href="${updateAdUrl}"><button>Update the ad!</button></a>
                 <c:url value="/ads/deleteAd" var="updateAdUrl">
-                    <c:param name="ad_id" value="${ad.id}" />
+                    <c:param name="ad_id" value="${userAd.id}" />
                 </c:url>
                 <a href="${updateAdUrl}"><button>Deleting the ad!</button></a>
             </div>
