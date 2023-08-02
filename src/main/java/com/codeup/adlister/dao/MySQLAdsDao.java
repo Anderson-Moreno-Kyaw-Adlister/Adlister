@@ -55,17 +55,23 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    //New method adds ad index and and selected catagorie to add_cat table
+    //New method adds ad index and selected category to add_cat table
     public void setCategories(long index, String category) throws SQLException {
-        String query = "SELECT id FROM categories WHERE category = '" + category + "'";
+        String query = "SELECT id FROM categories WHERE category = ?";
+
         PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, category);
+
         ResultSet rs = stmt.executeQuery();
 
         rs.next();
         long cat_id = rs.getLong("id");
 
-        String addQuery = "INSERT INTO ad_cat(ad_id, cat_id) VALUES (" + index + "," + cat_id + ")";
+        String addQuery = "INSERT INTO ad_cat(ad_id, cat_id) VALUES (?, ?)";
         stmt = connection.prepareStatement(addQuery);
+        stmt.setLong(1, index);
+        stmt.setLong(2, cat_id);
+
         stmt.executeUpdate();
     }
 
@@ -80,8 +86,21 @@ public class MySQLAdsDao implements Ads {
 
     //Created new method to only display containing key words
     public List<Ad> searchAds (String term) throws SQLException {
-        System.out.println(term);
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ADS WHERE title LIKE '%" + term + "%' OR description LIKE '%" + term +"%'");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ads " +
+                "WHERE id IN (" +
+                    "SELECT ad_id " +
+                    "FROM ad_cat " +
+                    "WHERE cat_id in (" +
+                        "SELECT id " +
+                        "FROM categories " +
+                        "WHERE category LIKE ?)) OR " +
+                        "title LIKE ? OR description LIKE ?");
+
+
+        stmt.setString(1, term);
+        stmt.setString(2, "%"+term+"%");
+        stmt.setString(3, "%"+term+"%");
+
         ResultSet rs = stmt.executeQuery();
         return createAdsFromResults(rs);
     }
