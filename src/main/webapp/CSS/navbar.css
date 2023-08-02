@@ -1,0 +1,23 @@
+.navbar-default{
+    width: 100%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+}
+.navbar-header{
+    width: 120px;
+    cursor: pointer;
+
+}
+.search-form{
+    display: flex;
+    justify-content: flex-end;
+}
+.navbar-brand{
+    display: flex;
+    justify-content: flex-start;
+
+}
