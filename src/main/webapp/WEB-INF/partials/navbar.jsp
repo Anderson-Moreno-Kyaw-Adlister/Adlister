@@ -27,7 +27,7 @@
         %>
         <form action="/search" method="GET">
             <label for="search">Search</label>
-            <input id="search" name="search" type="search">
+            <input id="search" name="search" type="text">
             <button type="submit">Search</button>
         </form>
     </div><!-- /.navbar-collapse -->

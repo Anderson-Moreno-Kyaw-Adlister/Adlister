@@ -19,12 +19,33 @@
 <div class="container">
   <h1>Results for "${search}"</h1>
 
-  <c:forEach var="ad" items="${ads}">
-    <div class="col-md-6">
-      <h2><c:out value="${ad.title}"/></h2>
-      <p>${ad.description}</p>
+  <div class="container d-flex-row">
+    <h1 class="h1 row text-center header">Displaying All the Ads!</h1>
+    <div class="row d-flex">
+      <div class="userAds container col-8">
+        <table class="table table-striped-rows">
+          <thead>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Individual Ad</th>
+          </thead>
+          <c:forEach var="ad" items="${ads}">
+            <tbody>
+            <tr>
+              <td>${ad.title}</td>
+              <td >${ad.description}</td>
+              <td>
+                <c:url value="/ads/individualad" var="individualadUrl">
+                  <c:param name="ad_id" value="${ad.id}" />
+                </c:url>
+                <a href="${individualadUrl}"><button> Individual Ad </button></a>
+              </td>
+            </tbody>
+          </c:forEach>
+        </table>
+      </div>
     </div>
-  </c:forEach>
+  </div>
 </div>
 </body>
 </html>

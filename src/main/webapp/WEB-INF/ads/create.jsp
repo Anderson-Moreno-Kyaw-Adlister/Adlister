@@ -30,12 +30,18 @@
             </div>
 <%--            Added checkboxes for catagories to jsp--%>
             <div>
-                <input type="checkbox" id="cat1" name="categories" value="cat1">
-                <label for="cat1">Cat 1</label>
-                <input type="checkbox" id="cat2" name="categories" value="cat2">
-                <label for="cat2">Cat 2</label>
-                <input type="checkbox" id="cat3" name="categories" value="cat3">
-                <label for="cat3">Cat 3</label>
+                <input type="checkbox" id="White" name="categories" value="White">
+                <label for="White">White</label>
+                <input type="checkbox" id="Brown" name="categories" value="Brown">
+                <label for="Brown">Brown</label>
+                <input type="checkbox" id="Tinted" name="categories" value="Tinted">
+                <label for="Tinted">Tinted</label>
+                <input type="checkbox" id="Egg Layers" name="categories" value="Egg Layers">
+                <label for="Egg Layers">Egg Layers</label>
+                <input type="checkbox" id="Meat Birds" name="categories" value="Meat Birds">
+                <label for="Meat Birds">Meat Birds</label>
+                <input type="checkbox" id="Pets" name="categories" value="Pets">
+                <label for="Pets">Pets</label>
             </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
