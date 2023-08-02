@@ -5,11 +5,15 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Welcome to my site!" />
     </jsp:include>
+    <style><%@include file="/CSS/webapp_index.css"%></style>
+    <title>Welcome to the ChickenLister</title>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+    <div id="chicken-image">
+        <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+    </div>
     <div class="container">
-        <h1>Welcome to the Adlister!</h1>
+        <h1 class="title">Welcome to the ChickenLister!</h1>
     </div>
 </body>
 </html>
