@@ -21,7 +21,7 @@
 <div class="container position-absolute top-50 start-50 translate-middle fill-info">
 
     <h1>Delete your Ad </h1>
-    <form action="/ads/deleteAd" method="post">
+    <form action="${pageContext.request.contextPath}/ads/deleteAd" method="post">
         <div class="form-group">
     <input type="hidden" name="ad_id" value="${sessionScope.adToDelete.id}">
         <button type="submit" class="btn btn-outline-danger my-3 w-100">CONFIRM DELETE</button>
@@ -36,3 +36,5 @@
 
 </body>
 </html>
+
+

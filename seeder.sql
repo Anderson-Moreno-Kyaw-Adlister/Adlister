@@ -1,6 +1,7 @@
 USE adlister_db;
 
 INSERT INTO categories (category)
+
     VALUES ('Brown'),
            ('White'),
            ('Tinted'),
@@ -9,6 +10,7 @@ INSERT INTO categories (category)
            ('Pets');
 
 INSERT INTO ads (user_id, title, description)
+
     VALUES (1, 'Buff Silkie Bantam', 'Great pets with a unique appearance and history'),
            (1, 'Partridge Cochin Bantam', 'First bantams in england also called Pekin'),
            (1, 'Buff Laced Polish', 'Fluffy, Bearded Chicken'),
@@ -18,6 +20,7 @@ INSERT INTO ads (user_id, title, description)
            (1, 'Ginger Broiler', 'Fast growing composite breed');
 
 INSERT INTO ad_cat (ad_id, cat_id)
+
     VALUES (1, 1),
            (1, 6),
            (2, 2),
