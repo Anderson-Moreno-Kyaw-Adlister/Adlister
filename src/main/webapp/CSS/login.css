@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Staatliches&display=swap');
-.directions{
+h1{
     font-family: 'Bungee Spice', cursive;
 }
 
@@ -11,15 +11,10 @@
     background-size: cover;
     background-position: center;
 }
-.container{
-    margin: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.username{
+
+.username1{
     font-family: 'Bungee Spice', cursive;
 }
-.password{
+.password2{
     font-family: 'Bungee Spice', cursive;
 }
