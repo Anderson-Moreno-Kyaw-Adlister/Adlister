@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Staatliches&display=swap');
-
-#background-image{
+#display-ad{
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75)),url("/images/profileimage.webp");
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75)),url("/images/displayaddimage.jpeg");
     background-size: cover;
     background-position: center;
 }
-h1{
+#ad-list{
     font-family: 'Bungee Spice', cursive;
 }
-h2{
-    font-family: 'Bungee Spice', cursive;
+table {
+    background-color: transparent;
 }

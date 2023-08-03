@@ -30,8 +30,9 @@
                 <a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-3 p-2 col" href="/ads/create">Create Ad</a>
                 <% } %>
             </ul>
-            <form class="d-flex col-4 p-2" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex col-4 p-2" role="search" action="/search">
+                <label for="search"></label>
+                <input id="search" name="search" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Search</button>
             </form>
         </div>
