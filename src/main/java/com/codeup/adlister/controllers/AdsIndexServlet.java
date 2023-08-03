@@ -15,18 +15,7 @@ import java.util.List;
 @WebServlet(name = "AdsIndexServlet", urlPatterns = "/ads")
 public class AdsIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User loggedInUser = (User) request.getSession().getAttribute("user");
-        if (loggedInUser == null) {
-            String currentURL = request.getRequestURL().toString();
-            request.getSession().setAttribute("intendedRedirect",currentURL);
-            // Redirect to the login page if the user is not logged in
-            response.sendRedirect("/login");
-            return;
-        }
-        List<Ad> userAds = DaoFactory.getAdsDao().userAds(loggedInUser.getId());
-
-        // Set the userAds attribute in the request
-        request.setAttribute("userAds", userAds);
+//        let all the users see ads page without logging in
         request.setAttribute("ads", DaoFactory.getAdsDao().all());
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }

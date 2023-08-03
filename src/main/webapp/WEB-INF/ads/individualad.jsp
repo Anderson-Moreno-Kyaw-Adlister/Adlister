@@ -16,7 +16,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-<h1>Ads</h1>
+<h1>Individual Ad</h1>
 <h2>${individualAd.title}</h2>
 <h3>${individualAd.description}</h3>
 </body>

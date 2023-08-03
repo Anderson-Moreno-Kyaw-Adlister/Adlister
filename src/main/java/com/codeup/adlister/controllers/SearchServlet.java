@@ -11,18 +11,17 @@ import java.sql.SQLException;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet{
-
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String searchTerm = req.getParameter("search");
+        String searchTerm = req.getParameter("search").trim();
 
         if (!searchTerm.equals("")) {
             try {
                 req.setAttribute("search", searchTerm);
                 req.setAttribute("ads", DaoFactory.getAdsDao().searchAds(searchTerm));
+                req.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(req, resp);
             } catch (SQLException e) {
                 resp.sendRedirect("/error-page.jsp");;
             }
-            req.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(req, resp);
         } else {
             resp.sendRedirect("/ads");
         }
