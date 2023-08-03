@@ -19,7 +19,7 @@
         <%--  Shows message if previous failure--%>
         <c:choose>
             <c:when test="${failedRegister}">
-                <h4><c:out value="${message}" /></h4>
+                <h4 class="text-warning"><c:out value="${message}" /></h4>
             </c:when>
             <c:otherwise>
             </c:otherwise>
