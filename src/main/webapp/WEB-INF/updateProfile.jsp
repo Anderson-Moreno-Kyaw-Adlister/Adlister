@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style><%@include file="/CSS/register.css"%></style>
+<style><%@include file="/CSS/updateprofile.css"%></style>
 <%--
   Created by IntelliJ IDEA.
   User: khinememekyaw
