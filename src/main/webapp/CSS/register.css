@@ -24,7 +24,7 @@ h1{
     background-size: cover;
     background-position: center;
 }
-.container{
+.fill-info{
     display: flex;
     flex-direction: column;
     justify-content: center;

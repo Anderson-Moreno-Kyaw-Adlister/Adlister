@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 .username{
     font-family: 'Bungee Spice', cursive;

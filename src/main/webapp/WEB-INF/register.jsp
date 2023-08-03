@@ -13,7 +13,7 @@
 
     <jsp:include page="partials/navbar.jsp" />
 
-        <div class="container">
+        <div class="container position-absolute top-50 start-50 translate-middle fill-info">
         <h1>Please fill in your information.</h1>
 
         <%--  Shows message if previous failure--%>
@@ -42,7 +42,7 @@
                 <label for="confirm_password" class="confirm-password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
             </div>
-            <input type="submit" class="btn btn-outline-danger m-2 btn-block">
+            <input type="submit" class="btn btn-outline-danger my-3 w-100 btn-block">
         </form>
         </div>
     </div>
