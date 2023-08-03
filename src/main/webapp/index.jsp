@@ -12,8 +12,10 @@
     <div id="chicken-image">
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     </div>
-    <div class="container">
-        <h1 class="title">Welcome to the ChickenLister!</h1>
+    <div class="container  w-100">
+        <h1 class="title text-center">Welcome to the ChickenLister!</h1>
     </div>
+
+
 </body>
 </html>

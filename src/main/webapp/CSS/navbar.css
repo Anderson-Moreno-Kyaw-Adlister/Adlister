@@ -1,24 +1,8 @@
-.navbar-default{
-    width: 100%;
-    margin: auto;
-    padding: 35px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: transparent;
-}
-.navbar-header{
-    width: 120px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-evenly;
-}
-.search-form{
-    display: flex;
-    justify-content: flex-end;
-}
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Staatliches&display=swap');
+
+
 .navbar-brand{
-    display: flex;
-    justify-content: flex-start;
+    font-family: 'Bungee Spice', cursive;
 
 }
