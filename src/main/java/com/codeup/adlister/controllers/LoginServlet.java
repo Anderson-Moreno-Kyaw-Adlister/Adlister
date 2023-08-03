@@ -32,6 +32,8 @@ public class LoginServlet extends HttpServlet {
         User user = DaoFactory.getUsersDao().findByUsername(username);
 
         if (user == null) {
+            request.getSession().setAttribute("message", "Incorrect login");
+            request.getSession().setAttribute("failedLogin", true);
             response.sendRedirect("/login");
             return;
         }
@@ -53,8 +55,6 @@ public class LoginServlet extends HttpServlet {
         } else {
             request.getSession().setAttribute("message", "Incorrect login");
             request.getSession().setAttribute("failedLogin", true);
-            System.out.println(request.getSession().getAttribute("message"));
-//            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             response.sendRedirect("/login");
         }
     }
