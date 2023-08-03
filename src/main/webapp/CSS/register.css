@@ -1,26 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Staatliches&display=swap');
-.directions{
+.username{
     font-family: 'Bungee Spice', cursive;
 }
 
-#baby-chicks{
+.password{
+    font-family: 'Bungee Spice', cursive;
+}
+.email{
+    font-family: 'Bungee Spice', cursive;
+}
+.confirm-password{
+    font-family: 'Bungee Spice', cursive;
+}
+h1{
+    font-family: 'Bungee Spice', cursive;
+}
+
+#hen-hen{
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75)),url("/images/babychicks.jpeg");
+    background-image: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75)),url("/images/desktop-1280x1024.jpg");
     background-size: cover;
     background-position: center;
 }
 .container{
-    margin: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-}
-.username{
-    font-family: 'Bungee Spice', cursive;
-}
-.password{
-    font-family: 'Bungee Spice', cursive;
 }
