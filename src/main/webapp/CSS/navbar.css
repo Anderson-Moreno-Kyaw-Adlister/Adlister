@@ -10,7 +10,8 @@
 .navbar-header{
     width: 120px;
     cursor: pointer;
-
+    display: flex;
+    justify-content: space-evenly;
 }
 .search-form{
     display: flex;
